@@ -593,6 +593,7 @@ form {
   min-width: 250px;
   flex: 1;
   gap: 1em;
+  align-items: stretch;
 }
 
 .sets-container{
@@ -603,8 +604,8 @@ form {
 }
 
 .sets-container > section {
-  flex-wrap: wrap;
   flex: 1;
+  min-width: 400px;
 }
 
 .edit-exercises li.new {
@@ -1339,3 +1340,20 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+#recentSetsContainer {
+        height: 200px;
+        overflow-y: scroll;
+        border-radius: 2em;
+    }
+
+    .recent-set-item {
+      font-size:1em;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }

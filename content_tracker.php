@@ -95,11 +95,37 @@ if (isset($_SESSION['user_id'])) {
 
                     </section>
                     
-                    <section>
-                        <h2>Recent Sets</h2>
-                        <div class="block">
-                        </div>
-                    </section>
+                
+                    <?php
+// Assuming $sets is an array of sets with keys like 'exercise_id', 'reps', 'weight', and 'date'
+// Assuming $exercises is an array of exercises with keys like 'id' and 'name'
+
+// Create an associative array of exercise id and exercise name
+$exerciseNames = array_column($exercises, 'name', 'id');
+
+// Sort sets by date in descending order
+usort($sets, function($a, $b) {
+    return strtotime($b['date']) - strtotime($a['date']);
+});
+
+// Take the first 10 sets (or less if there are fewer than 10 sets)
+$recentSets = array_slice($sets, 0, 10);
+?>
+
+<section>
+    <h2>Recent Sets</h2>
+    <div class="block" id="recentSetsContainer">
+        <?php foreach ($recentSets as $set): ?>
+            <ul class="recent-set-item">
+                <?php
+                    $exerciseName = $exerciseNames[$set['exercise_id']];
+                    echo '<span>' . $exerciseName . '</span></span>' . $set['reps'] . ' x ' . $set['weight'] . ' kg</span>';
+                ?>
+            </ul>
+        <?php endforeach; ?>
+    </div>
+</section>
+
                 </div>
 
                 <!-- chart section -->
