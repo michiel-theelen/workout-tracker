@@ -16,12 +16,4 @@ Follow these steps to get the project up and running on your local machine.
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) installed
-- [npm](https://www.npmjs.com/) package manager installed
-
-### Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/yourusername/workout-tracker.git
+- Fully native HTML + CSS + JS + PHP
