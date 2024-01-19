@@ -367,9 +367,7 @@ function chartSelectDataByMetric(exerciseData) {
 
 function chartAddDataPoint() {
   // Get the form values
-  const selectExercise = document.getElementById('select-exercise');
-  const newExerciseName = selectExercise.options[selectExercise.selectedIndex].text;
-  const newExerciseId = selectExercise.value;
+  const newExerciseName = document.getElementById('name').value;
   const newDate = document.getElementById('date').value;
   const newReps = document.getElementById('reps').value;
   const newWeight = document.getElementById('weight').value;
@@ -381,7 +379,6 @@ function chartAddDataPoint() {
   data.push({
     id: newId,
     exercise_name: newExerciseName,
-    exercise_id: newExerciseId,
     date: newDate,
     reps: +newReps, // convert to number using unary plus operator
     weight: +newWeight, // convert to number using unary plus operator
@@ -399,8 +396,9 @@ function chartAddDataPoint() {
     .call(xAxis.scale(xScale));
 
   // Call the updateChart function to update the chart with the new data
-  onResize();
+  updateChart();
 }
+
 
 function dragstarted() {
   d3.select(this).raise().classed("active", true);

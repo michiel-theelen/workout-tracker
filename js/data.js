@@ -1,59 +1,59 @@
-
-// add set
 async function addSet(event) {
   event.preventDefault();
 
-  const name = document.getElementById('name').value;
+  const exerciseName = document.getElementById('name').value;
   const date = document.getElementById('date').value;
   const reps = document.getElementById('reps').value;
   const weight = document.getElementById('weight').value;
-  let exerciseId;
 
   try {
-    // Fetch or add exercise
-    $.ajax({
-      url: 'add_exercise.php',
-      type: 'POST',
-      data: { name: name },
-      dataType: 'json',
-      success: function(response) {
-        if (response.id) {
-          // Assign exerciseId to the variable declared in the higher scope
-          exerciseId = response.id;
-          console.log('exerciseId:', exerciseId);  // Log exerciseId
-        } else {
-          alert('Error adding exercise.');
-        }
-      },
-      error: function() {
-        alert('Error adding exercise.');
-      }
-    });
-
-    // Now, add the set using add_set.php with the obtained exercise id
-    const formData = new FormData();
-    formData.append('id', exerciseId);  // Use the exerciseId from the higher scope
-    formData.append('date', date);
-    formData.append('reps', reps);
-    formData.append('weight', weight);
-
-    const responseSet = await fetch('add_set.php', {
+    // Add the exercise (or get its ID if it already exists)
+    const response = await fetch('add_exercise.php', {
       method: 'POST',
-      body: formData
+      body: new URLSearchParams({ name: exerciseName }),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
     });
 
-    if (!responseSet.ok) {
-      console.error('Error adding set. Response:', responseSet);
-      throw new Error('Error adding set');
-    } 
-    
+    const responseData = await response.json();
 
+    if (response.ok) {
+      const exerciseId = responseData.id;
+      console.log('Exercise ID:', exerciseId);
+
+      // Now, add the set using the obtained exercise ID
+      const formData = new FormData();
+      formData.append('exerciseId', exerciseId);
+      formData.append('date', date);
+      formData.append('reps', reps);
+      formData.append('weight', weight);
+
+      const addSetResponse = await fetch('add_set.php', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (addSetResponse.ok) {
+        // add feedback element
+        const addButton = document.getElementById('btn-add-set');
+        addButton.classList.add('btn-success');
+        setTimeout(() => {
+          addButton.classList.remove('btn-success');
+        }, 300);
+
+        chartAddDataPoint();
+      } else {
+        throw new Error('Error adding set');
+      }
+    } else {
+      throw new Error('Error adding exercise');
+    }
   } catch (error) {
     console.error(error);
     alert('Error adding set');
   }
 }
-
 
 // delete set
 function deleteSet(button) {
