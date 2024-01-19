@@ -63,7 +63,7 @@ if (isset($_SESSION['user_id'])) {
                             <!-- exercise -->
                             <div class="select-exercise-container">
                                 <label for="name" >Exercise:</label>
-                                <input type="text" list="select-exercise" id="name" name="name" autofill="off"/>
+                                <input type="text" list="select-exercise" id="name" name="name" required/>
                                 <datalist aria-label=".form-select-sm" id="select-exercise" name="select-exercise" >
                                     <?php foreach ($exercises as $i => $exercise): ?>
                                         <option class="exercise-option" id="exercise-option-<?php echo $exercise['id']; ?>" value="<?php echo $exercise['name']; ?>" <?php echo ($i === 0) ? 'selected="selected"' : ''; ?>><?php echo $exercise['name']; ?></option>
@@ -75,12 +75,12 @@ if (isset($_SESSION['user_id'])) {
                                 <!-- repetitions -->
                                 <div class="s">
                                     <label class="" for="reps">Reps:</label>
-                                    <input type="number" class="input exercise" id="reps" name="reps" required>
+                                    <input type="number" class="input exercise" id="reps" name="reps" pattern="[0-9]*" inputmode="numeric" required>
                                 </div>
                                 <!-- weight -->
                                 <div class="">
                                     <label class="" for="weight">Weight:</label>
-                                    <input type="number" class="input exercise" id="weight" name="weight" required>
+                                    <input type="number" class="input exercise" id="weight" name="weight" pattern="[0-9,]*" inputmode="decimal" required>
                                     </div>
                                 <!-- date -->
                                 <div class="date-container">
@@ -97,8 +97,6 @@ if (isset($_SESSION['user_id'])) {
                     
                 
                     <?php
-// Assuming $sets is an array of sets with keys like 'exercise_id', 'reps', 'weight', and 'date'
-// Assuming $exercises is an array of exercises with keys like 'id' and 'name'
 
 // Create an associative array of exercise id and exercise name
 $exerciseNames = array_column($exercises, 'name', 'id');
@@ -153,7 +151,7 @@ $recentSets = array_slice($sets, 0, 10);
                                         <select id="exerciseSelector" onchange="updateChart()">
                                             <option value="all" selected>Alles</option>
                                             <?php foreach ($exercises as $exercise): ?>
-                                                <?php $exerciseId = $exercise['name']; ?>
+                                                <?php $exerciseId = $exercise['id']; ?>
                                                 <option value="<?php echo $exerciseId; ?>"><?php echo $exercise['name']; ?></option>
                                             <?php endforeach; ?>
                                         </select>

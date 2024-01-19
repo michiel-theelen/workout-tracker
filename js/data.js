@@ -40,7 +40,7 @@ async function addSet(event) {
         addButton.classList.add('btn-success');
         setTimeout(() => {
           addButton.classList.remove('btn-success');
-        }, 300);
+        }, 1000);
 
         chartAddDataPoint();
       } else {

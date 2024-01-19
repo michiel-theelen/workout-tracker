@@ -137,6 +137,7 @@ function updateChart() {
   onResize();
 
   const selectExerciseData = chartSelectExercise();
+  console.log(selectExerciseData);
   filteredData = chartSelectDataByMetric(selectExerciseData);
   chartSelectDateRange();
   chartSelectWeightRange();

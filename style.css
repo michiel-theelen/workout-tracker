@@ -605,7 +605,7 @@ form {
 
 .sets-container > section {
   flex: 1;
-  min-width: 400px;
+  min-width: 300px;
 }
 
 .edit-exercises li.new {
@@ -757,10 +757,14 @@ button {
 .btn-add {
   background-color: var(--btn-add-bg);
   background-image: url('img/plus.svg');
+  transition-duration: 0.5s;
 }
 
 .btn-success {
-  background-image: url('img/checkmark.svg');
+  
+  /* background-image: url('img/checkmark.svg'); */
+  background-color: green;
+  transition-duration: 0.5s;
 }
 
 .btn-download {
