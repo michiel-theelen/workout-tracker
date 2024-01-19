@@ -207,8 +207,7 @@ function hideMenu() {
 
   setTimeout(function() {
       hamburgerButton.classList.remove('is-active');
-      sideMenu.classList.remove('show');
-      
+      sideMenu.classList.remove('show'); 
   }, 0);
 
   setTimeout(function() {

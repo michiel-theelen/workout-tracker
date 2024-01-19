@@ -137,7 +137,6 @@ function updateChart() {
   onResize();
 
   const selectExerciseData = chartSelectExercise();
-  console.log(selectExerciseData);
   filteredData = chartSelectDataByMetric(selectExerciseData);
   chartSelectDateRange();
   chartSelectWeightRange();
@@ -212,7 +211,7 @@ bands
     // d is the index, so we add 1 to make it start from 1 instead of 0, then multiply by bandSize
     .attr("width", chartWidth)
      // yScale is inverted, so yScale(0) will be the bottom of the chart and yScale(bandSize) will be the top of the band
-    .attr("fill", d => d % 2 === 0 ? "rgba0,0,0,0.1" : "rgba(0,0,0,0.2")
+    .attr("fill", d => d % 2 === 0 ? "rgba(0,0,0,0.1)" : "rgba(0,0,0,0)")
     .attr("y", d => yScale((d + 1) * bandSize))
     .attr("height", yScale(0) - yScale(bandSize))
     .attr("opacity", 0)
@@ -222,7 +221,7 @@ bands
 
 bands
     .transition() // Transition on update
-    .duration(1000)
+    .duration(2000)
     .attr("y", d => yScale((d + 1) * bandSize))
     .attr("height", yScale(0) - yScale(bandSize));
 
@@ -303,7 +302,8 @@ function chartSelectDateRange() {
 
 function chartSelectWeightRange() {
   // Update y-axis
-  const maxWeight = Math.max(...filteredData.map(d => Number(d.weight)));
+  const maxWeightLimit = 20; // Set your desired upper limit for the y-axis
+  const maxWeight = Math.max(maxWeightLimit, Math.max(...filteredData.map(d => Number(d.weight))));
   const yDomain = [0, maxWeight];
 
   yScale.domain(yDomain);
@@ -324,16 +324,24 @@ function chartSelectExercise() {
 }
 
 function chartSelectDataByMetric(exerciseData) {
+
+  // Log exerciseData
+  console.log("Exercise Data:", exerciseData);
+
   const selectedData = document.getElementById('dataSelector').value;
   let weightCalculator;
 
   switch (selectedData) {
-    case "max":
-      // Function to get the max weight and corresponding ID for each group
+     case "max":
+      // Function to get the max weight and corresponding ID for all data points
       weightCalculator = v => {
         const maxWeight = d3.max(v, d => d.weight);
         const id = v.find(d => d.weight === maxWeight).id;
-        return {weight: maxWeight, id};
+
+      // Log the data in a single statement
+      console.log("Max Weight and Corresponding ID:", { weight: maxWeight, id });
+
+        return { weight: maxWeight, id };
       };
       break;
 
@@ -373,6 +381,8 @@ function chartAddDataPoint() {
   const newReps = document.getElementById('reps').value;
   const newWeight = document.getElementById('weight').value;
 
+  console.log('New Date:', newDate);
+  
   // Create a new id
   const newId = Date.now();
 
@@ -494,7 +504,7 @@ function updatelegend(x) {
 
   // Show legend content of selected date
   let dateForlegend = d3.timeFormat("%B %d, %Y")(new Date(nearestDataPoint.date));
-  legend.html(`${dateForlegend}<hr>` + 
+  legend.html(`<b>${dateForlegend}</b><hr>` + 
     legendData.map(d => `
         <span class="legend-dot" style="background-color: ${colorScale(d.exercise_name)};"></span>
         ${d.exercise_name}: ${d.reps} x ${d.weight}kg

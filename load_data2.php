@@ -17,12 +17,12 @@ foreach ($data as $row) {
     $formatted_date = date('Y-m-d H:i:s', strtotime($row['date'] . ' 00:00:00'));
 
     $formattedData[] = [
-        'id' => $row['id'],
+        'id' => (int)$row['id'],
         'exercise_name' => $row['exercise_name'],
         'exercise_id' => $row['exercise_id'],
         'date' => $formatted_date,
-        'reps' => $row['reps'],
-        'weight' => $row['weight']
+        'reps' =>(int)$row['reps'],
+        'weight' => (float)$row['weight']
     ];
 }
 

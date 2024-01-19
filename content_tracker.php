@@ -141,15 +141,15 @@ $recentSets = array_slice($sets, 0, 10);
                                     <div class="select">
                                         <select id="dateRangeSelector" onchange="chartSelectDateRange()">
                                             <option value="1w">Week</option>
-                                            <option value="1m">Maand</option>
-                                            <option value="1y">Jaar</option>
-                                            <option value="all" selected>Alles</option>
+                                            <option value="1m">Month</option>
+                                            <option value="1y">Year</option>
+                                            <option value="all" selected>Range </option>
                                         </select>
                                     </div>
                                     <!-- select exercise -->
                                     <div class="select">
                                         <select id="exerciseSelector" onchange="updateChart()">
-                                            <option value="all" selected>Alles</option>
+                                            <option value="all" selected>All exercises</option>
                                             <?php foreach ($exercises as $exercise): ?>
                                                 <?php $exerciseId = $exercise['id']; ?>
                                                 <option value="<?php echo $exerciseId; ?>"><?php echo $exercise['name']; ?></option>
@@ -159,9 +159,9 @@ $recentSets = array_slice($sets, 0, 10);
                                     <!-- Select data metric -->
                                     <div class="select">
                                         <select id="dataSelector" onchange="updateChart()">
-                                            <option value="all" selected>Alles</option>
-                                            <option value="max">Zwaarste</option>
-                                            <option value="total">Totaal</option>
+                                            <option value="all" selected>All sets</option>
+                                            <option value="max">Heaviest set</option>
+                                            <option value="total">Total weight</option>
                                         </select>
                                     </div>
                                     <!-- scroll right -->

@@ -36,7 +36,7 @@
   --nav-bg: hsla(0, 0%, 0%, 0.0);
   --nav-backdrop: blur(40px) saturate(160%) contrast(120%) brightness(50%);
   --nav-transition-duration: 0.2s;
-  --nav-transition-delay: var(--container-transition-duration);
+  --nav-transition-delay: var(0s);
 
   --btn-nav-bg: transparent;
   --btn-nav-text: rgb(0, 0, 0);
@@ -198,7 +198,7 @@ label {
   opacity: 0.8;
   -webkit-box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
     box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
-  border-radius: 1em;
+  border-radius: 0;
 }
 
 /* Navigation */
@@ -445,7 +445,7 @@ margin: 0;
   align-items: center;
   gap: .5rem;
   width: 100%;
-  padding: .5rem;
+  padding-left: 1em;
   height: auto;
   /* padding-top: 0; */
 }
@@ -1346,9 +1346,8 @@ input:checked + .slider:before {
 }
 
 #recentSetsContainer {
-        height: 200px;
+        height: 135px;
         overflow-y: scroll;
-        border-radius: 2em;
     }
 
     .recent-set-item {
